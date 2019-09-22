@@ -6,12 +6,12 @@ function main() {
   const canvas = document.querySelector('canvas');
   const gl = canvas.getContext('webgl');
 
-  // ef að browserinn styður ekki webgl byrtist error
+  // ef að browserinn styður ekki webgl birtist error
   if (!gl) {
       throw new Error('WebGL not supported');
   }
 
-  // hnitin fyrir þríhyrninginn
+  // hnitin fyrir þríhyrninginn [x y z] notum ekki z því þett er 2D form
   const vertexData = [
       0, 0.707, 0,
       1, -1, 0,
@@ -37,7 +37,7 @@ function main() {
 
   // búa til shaders sem að birta hnitin úr bufferinu sem við vorum að gera
   // búa til vectora fyrir position og liti
-  // margfalda uniform með posotion fyrir snúninginn
+  // margfalda uniform með position fyrir snúninginn
   const vertexShader = gl.createShader(gl.VERTEX_SHADER);
   gl.shaderSource(vertexShader, `
   precision mediump float;
@@ -54,6 +54,7 @@ function main() {
   `);
   gl.compileShader(vertexShader);
 
+  // fragment shader
   const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
   gl.shaderSource(fragmentShader, `
   precision mediump float;
@@ -92,9 +93,9 @@ function main() {
 
   // búa til matrix
   const matrix = mat4.create();
-  mat4.scale(matrix, matrix, [.5, .5, .5]);
+  mat4.scale(matrix, matrix, [.7, .7, .7]); // scala-a þríhyrninginn niður annars fer hann útaf canvas
 
-  function animate() {
+  function animate() { // animate fall sem að rotate-ar þríhyrninginn um Z ás. Geri Math.PI / 200 til að stilla hraðan á snúninginum
     requestAnimationFrame(animate);
     gl.uniformMatrix4fv(uniformLocations.matrix, false, matrix);
     mat4.rotateZ(matrix, matrix, Math.PI / 200);
