@@ -13,7 +13,7 @@ function main() {
 
   // hnitin fyrir þríhyrninginn
   const vertexData = [
-      0, 1, 0,
+      0, 0.707, 0,
       1, -1, 0,
       -1, -1, 0,
   ];
@@ -36,6 +36,8 @@ function main() {
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colorData), gl.STATIC_DRAW);
 
   // búa til shaders sem að birta hnitin úr bufferinu sem við vorum að gera
+  // búa til vectora fyrir position og liti
+  // margfalda uniform með posotion fyrir snúninginn
   const vertexShader = gl.createShader(gl.VERTEX_SHADER);
   gl.shaderSource(vertexShader, `
   precision mediump float;
@@ -43,9 +45,11 @@ function main() {
   attribute vec3 color;
   varying vec3 vColor;
 
+  uniform mat4 matrix;
+
   void main() {
       vColor = color;
-      gl_Position = vec4(position, 1);
+      gl_Position = matrix * vec4(position, 1);
   }
   `);
   gl.compileShader(vertexShader);
@@ -81,7 +85,24 @@ function main() {
 
   // segja forritinu hvaða program það á að teikna
   gl.useProgram(program);
-  gl.drawArrays(gl.TRIANGLES, 0, 3);
+
+  const uniformLocations = {
+    matrix: gl.getUniformLocation(program, `matrix`),
+  };
+
+  // búa til matrix
+  const matrix = mat4.create();
+  mat4.scale(matrix, matrix, [.5, .5, .5]);
+
+  function animate() {
+    requestAnimationFrame(animate);
+    gl.uniformMatrix4fv(uniformLocations.matrix, false, matrix);
+    mat4.rotateZ(matrix, matrix, Math.PI / 200);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+  }
+
+  animate();
+  
 }
 
 window.onload = main;
