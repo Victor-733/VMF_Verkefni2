@@ -8,6 +8,24 @@ function main() {
       throw new Error('WebGL not supported');
   }
 
+  // ------- PROCESSIÐ Á ÖLLU -------- //
+
+  // vertexData = [...]
+
+  // búa til buffer
+  // loada Data í buffer
+
+  // búa til vertex shader
+  // búa til fragment shader
+  // búa til program
+  // tengja shaders við program-ið
+
+  // kveikja á vertex gildunum
+
+  // teikna
+
+  // --------------------------------- //
+
   // hnitin fyrir þríhyrninginn [x y z] notum ekki z því þett er 2D form
   const vertexData = [
       0, 0.707, 0,
