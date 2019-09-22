@@ -1,6 +1,3 @@
-//
-// start here
-//
 function main() {
   // kallar á canvas og webgl
   const canvas = document.querySelector('canvas');
@@ -25,7 +22,7 @@ function main() {
     0, 0, 1, // litur á horni/vertex 3
   ];
 
-  // búa til buffer sem að við munum loada vertex í
+  // búa til buffer sem að við munum loada data í
   const positionBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertexData), gl.STATIC_DRAW);
