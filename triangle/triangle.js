@@ -10,19 +10,19 @@ function main() {
 
   // ------- PROCESSIÐ Á ÖLLU -------- //
 
-  // vertexData = [...]
+  /* vertexData = [...]
 
   // búa til buffer
-  // loada Data í buffer
+   - loada Data í buffer
 
-  // búa til vertex shader
-  // búa til fragment shader
-  // búa til program
-  // tengja shaders við program-ið
+   - búa til vertex shader
+   - búa til fragment shader
+   - búa til program
+   - tengja shaders við program-ið
 
-  // kveikja á vertex gildunum
+   - kveikja á vertex gildunum
 
-  // teikna
+   -  teikna/animate-a */
 
   // --------------------------------- //
 
@@ -84,8 +84,8 @@ function main() {
 
   // búa til program og loada shaderunum sem við vorum að búa til í programið
   const program = gl.createProgram();
-  gl.attachShader(program, vertexShader);
-  gl.attachShader(program, fragmentShader);
+  gl.attachShader(program, vertexShader); // bæta við vertex shader
+  gl.attachShader(program, fragmentShader); // bæta við fragment shader
   gl.linkProgram(program);
 
   // staðsetningin á attribute sem að hann á að loada
@@ -108,17 +108,20 @@ function main() {
 
   // búa til matrix
   const matrix = mat4.create();
-  mat4.scale(matrix, matrix, [.7, .7, .7]); // scala-a þríhyrninginn niður annars fer hann útaf canvas
+  mat4.scale(matrix, matrix, [0.7, 0.7, 0.7]); // scala-a þríhyrninginn niður annars fer hann útaf canvas
 
-  function animate() { // animate fall sem að rotate-ar þríhyrninginn um Z ás. Geri Math.PI / 200 til að stilla hraðan á snúninginum
+  function animate() { // animate fall sem að rotate-ar þríhyrninginn um ás. Geri Math.PI / 200 til að stilla hraðan á snúninginum
     requestAnimationFrame(animate);
     gl.uniformMatrix4fv(uniformLocations.matrix, false, matrix);
-    mat4.rotateZ(matrix, matrix, Math.PI / 200);
-    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    mat4.rotateY(matrix, matrix, Math.PI / 200);
+    gl.drawArrays(gl.TRIANGLES, 0, 3); // teikna þríhyrning
   }
 
-  animate();
+  animate(); // kalla á animate fallið
   
 }
 
 window.onload = main;
+
+/* þríhyrningurinn er ekki að snúast um miðjuna vegna þess að staðsetningin á honum er ekki í miðjunni
+og animate fallið er að snúast um miðjuna á canvasinu */
