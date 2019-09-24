@@ -123,5 +123,5 @@ function main() {
 
 window.onload = main;
 
-/* þríhyrningurinn er ekki að snúast um miðjuna vegna þess að staðsetningin á honum er ekki í miðjunni
+/* þríhyrningurinn er ekki að snúast um miðjuna þegar hann snýst um Z-ás vegna þess að staðsetningin á honum er ekki í miðjunni
 og animate fallið er að snúast um miðjuna á canvasinu */
