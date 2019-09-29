@@ -23,8 +23,6 @@ var geometry = new THREE.BoxGeometry(1, 1, 1); // búa til shape
 var material = new THREE.MeshLambertMaterial({color: 0xFFBACA}); // búa til material (MeshLambertMaterial)
 var mesh = new THREE.Mesh(geometry, material); // blanda forminu og material Í mesh
 
-mesh.position.x = 2;
-
 scene.add(mesh);
 
 var light = new THREE.PointLight(0xFFFFFF, 1, 500); // búa til ljós sem hefur (lit, intensity, distance)
@@ -33,6 +31,8 @@ scene.add(light);
 
 var render = function() { // teiknar scene-ið alltaf aftur um leið og glugginn er breyttur eða refreshaður
     requestAnimationFrame(render);
+    mesh.rotation.x += 0.01;
+    mesh.rotation.y += 0.01;
     renderer.render(scene, camera);
 }
 
