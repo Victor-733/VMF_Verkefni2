@@ -29,13 +29,21 @@ var light = new THREE.PointLight(0xFFFFFF, 1, 500); // búa til ljós sem hefur 
 light.position.set(10, 0, 25); // staðsetning á ljósinu
 scene.add(light);
 
+let directionX = 0.01;
+let directionY = 0.01;
+
 var render = function() { // teiknar scene-ið alltaf aftur um leið og glugginn er breyttur eða refreshaður
     requestAnimationFrame(render);
-    mesh.rotation.x += 0.01;
-    mesh.rotation.y += 0.01;
+    mesh.rotation.x += directionX; // kubburinn snýst
+    mesh.rotation.y += directionY;
     renderer.render(scene, camera);
 }
 
 render();
 
-renderer.render(scene, camera);
+document.body.addEventListener('click', switchDirections);
+
+function switchDirections() {
+    directionX = -directionX; // ef maður ýtir á skjáinn þá breytist kubburinn um átt
+    directionY = -directionY;
+}
